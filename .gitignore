@@ -8,3 +8,21 @@
 # Alternatively, use a wildcard to catch all variants:
 *.env
 *.env.*
+
+.ipynb_checkpoints/
+
+# Python virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Python cache and bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# IDE and OS specific files
+.vscode/
+.idea/
+.DS_Store

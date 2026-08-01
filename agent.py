@@ -7,13 +7,12 @@ from langgraph.checkpoint.memory import InMemorySaver
 from langchain.tools import BaseTool
 import os 
 import dotenv
-from pydantic import BaseModel
-
-groq_key=os.getenv("GROQ_API_KEY")  
+from pydantic import BaseModel, SecretStr
 
 
 dotenv.load_dotenv()
 
+groq_key = os.getenv("GROQ_API_KEY")
 class EmailInput(BaseModel):
     to: str
     subject: str
@@ -39,7 +38,7 @@ print(f"Available MCP tools: {[tool.name for tool in mcp_tools]}")
 
 class MCPTool(BaseTool):
     """Wrapper for an MCP tool to be used in LangGraph ReAct."""
-    name: str
+    name: str # type: ignore
     description: str
     mcp_tool_name: str
 
@@ -77,7 +76,7 @@ llm = ChatGroq(
     max_tokens=None,
     timeout=None,
     max_retries=2,
-    api_key=groq_key
+    api_key=SecretStr(groq_key) if groq_key else None
 )
 
 memory = InMemorySaver()
