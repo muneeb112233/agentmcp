@@ -7,8 +7,11 @@ from langgraph.checkpoint.memory import InMemorySaver
 from langchain.tools import BaseTool
 import os 
 import dotenv
-from pydantic import BaseModel  
-#
+from pydantic import BaseModel
+
+groq_key=os.getenv("GROQ_API_KEY")  
+
+
 dotenv.load_dotenv()
 
 class EmailInput(BaseModel):
@@ -74,7 +77,7 @@ llm = ChatGroq(
     max_tokens=None,
     timeout=None,
     max_retries=2,
-    api_key=os.getenv("GROQ_API_KEY")
+    api_key=groq_key
 )
 
 memory = InMemorySaver()
